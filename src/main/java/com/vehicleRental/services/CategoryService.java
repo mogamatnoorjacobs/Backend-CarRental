@@ -11,4 +11,5 @@ public interface CategoryService {
     Category update(Category category);
     void delete(long id);
     Category findByName(String name);
+    Iterable<Category> readAll();
 }
