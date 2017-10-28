@@ -6,10 +6,7 @@ import com.vehicleRental.factories.OrderFactory;
 import com.vehicleRental.services.Impl.CustomerServiceImpl;
 import com.vehicleRental.services.Impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 public class OrderController {
 
@@ -25,6 +22,7 @@ public class OrderController {
 
     private Customer customer;
 
+    @CrossOrigin
     @GetMapping(path="/{customerId}/addOrder")
     public @ResponseBody
     Orders create(@PathVariable long customerId, @RequestParam String orderDate)
@@ -33,14 +31,14 @@ public class OrderController {
         orders = OrderFactory.getOrder(orderDate,customer);//,  customer);
         return  orderService.create(orders);
     }
-
+    @CrossOrigin
     @GetMapping (path="/{customerId}/findOrder")
     public @ResponseBody Orders findByCustomer (@PathVariable long customerId, @RequestParam Long id)
     {
         return orderService.read(id);
     }
 
-
+    @CrossOrigin
     @GetMapping (path="/{customerId}/updateOrder")
     public @ResponseBody Orders updateOrder (@PathVariable long customerId,@RequestParam long id, @RequestParam String orderDate) {
 
@@ -53,7 +51,7 @@ public class OrderController {
 
         return orderService.update(orderUpdate);
     }
-
+    @CrossOrigin
     @GetMapping (path="/{customerId}/deleteOrder")
     public @ResponseBody void updateOrder (@RequestParam Long id) {
         orderService.delete(id);

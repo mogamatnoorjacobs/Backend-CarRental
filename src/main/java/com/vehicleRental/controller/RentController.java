@@ -34,6 +34,7 @@ public class RentController
     @Autowired
     private OrderServiceImpl orderService;
 
+    @CrossOrigin
     @GetMapping(path="/{orderId}/{carId}/rentCar")
     public @ResponseBody
     Rent create( @PathVariable long orderId, @PathVariable long carId,  @RequestParam String rentDate, @RequestParam String returnDate,
@@ -46,13 +47,14 @@ public class RentController
 
     }
 
+    @CrossOrigin
     @GetMapping (path="/findRentedItem")
     public @ResponseBody Rent findByCustomer (@RequestParam Long id)
     {
         return rentService.read(id);
     }
 
-
+    @CrossOrigin
     @GetMapping (path="/{orderId}/{carId}/updateRent")
     public @ResponseBody Rent updateRent (@PathVariable long orderId, @PathVariable long carId,
                                           @RequestParam Long rentId,
@@ -72,7 +74,7 @@ public class RentController
 
         return rentService.update(rentUpdate);
     }
-
+    @CrossOrigin
     @GetMapping (path="/deleteRent")
     public @ResponseBody void updateRent (@RequestParam Long id) {
         rentService.delete(id);
