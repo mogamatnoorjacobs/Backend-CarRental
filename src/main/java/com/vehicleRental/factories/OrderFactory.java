@@ -1,16 +1,16 @@
 package com.vehicleRental.factories;
 
 import com.vehicleRental.domain.Customer;
-import com.vehicleRental.domain.Order;
+import com.vehicleRental.domain.Orders;
 
 public class OrderFactory {
 
-    public static Order getOrder( String orderDate, Customer customer ) {
+    public static Orders getOrder(String orderDate, Customer customer ) {
 
-        Order order = new Order.Builder()
+        Orders orders = new Orders.Builder()
                 .customer(customer)
                 .orderDate(orderDate)
                 .build();
-        return order;
+        return orders;
     }
 }

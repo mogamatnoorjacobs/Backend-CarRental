@@ -3,20 +3,22 @@ package com.vehicleRental.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 @Entity
-public class Order  implements Serializable {
+public class Orders implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne
-    private Customer customer;
-
     private String orderDate;
 
-    public Order(){}
+    @OneToOne
+    private Customer customer;
 
-    public Order(Builder builder) {
+
+
+    public Orders(){}
+
+    public Orders(Builder builder) {
         this.id = builder.id;
         this.orderDate = builder.orderDate;
         this.customer = builder.customer;
@@ -45,9 +47,9 @@ public class Order  implements Serializable {
         }
 
 
-        public Order build()
+        public Orders build()
         {
-            return new Order(this);
+            return new Orders(this);
         }
     }
 

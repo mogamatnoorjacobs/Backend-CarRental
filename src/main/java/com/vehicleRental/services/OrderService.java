@@ -1,12 +1,12 @@
 package com.vehicleRental.services;
 
-import com.vehicleRental.domain.Order;
+import com.vehicleRental.domain.Orders;
 
 public interface OrderService {
 
-    Order create(Order order);
-    Order read(long id);
-    Order update(Order order);
+    Orders create(Orders orders);
+    Orders read(long id);
+    Orders update(Orders orders);
     void delete(long id);
-    //Order findByCustomer(Long id);
+    //Orders findByCustomer(Long id);
 }

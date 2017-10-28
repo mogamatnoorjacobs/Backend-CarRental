@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Order;
 
 @Entity
 public class Rent implements Serializable
@@ -15,9 +16,13 @@ public class Rent implements Serializable
     private String returntDate;
     private BigDecimal totalPrice;
     private  int quantity;
+
     @OneToOne
     @JoinColumn(name = "carID")
     private Car car;
+
+    @ManyToOne
+    private Orders order;
 
     public Long getId() {
         return id;
@@ -38,8 +43,13 @@ public class Rent implements Serializable
         return car;
     }
 
+    public Orders getOrder() {
+        return order;
+    }
+
     public Rent(Builder builder)
     {
+        this.order = builder.order;
         this.id = builder.id;
         this.rentDate = builder.rentDate;
         this.returntDate = builder.returntDate;
@@ -55,7 +65,13 @@ public class Rent implements Serializable
         private BigDecimal totalPrice;
         private int quantity;
         private Car car;
+        private Orders order;
 
+        public Builder order(Orders value)
+        {
+            this.order = value;
+            return this;
+        }
         public Builder id(Long value) {
             this.id = value;
             return this;
