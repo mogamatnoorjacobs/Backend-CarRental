@@ -1,9 +1,11 @@
 package com.vehicleRental.controller;
 
 import com.vehicleRental.domain.Car;
+import com.vehicleRental.domain.Orders;
 import com.vehicleRental.domain.Rent;
 import com.vehicleRental.factories.RentFactory;
 import com.vehicleRental.services.Impl.CarServiceImpl;
+import com.vehicleRental.services.Impl.OrderServiceImpl;
 import com.vehicleRental.services.Impl.RentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ public class RentController
 {
     private Rent rent;
     private Car car;
+    private Orders order;
 
     @Autowired
     private RentServiceImpl rentService;
@@ -28,14 +31,18 @@ public class RentController
     @Autowired
     private CarServiceImpl carService;
 
-    @GetMapping(path="/{carId}/rentCar")
+    @Autowired
+    private OrderServiceImpl orderService;
+
+    @GetMapping(path="/{orderId}/{carId}/rentCar")
     public @ResponseBody
-    Rent create( @PathVariable Long carId, @RequestParam String rentDate, @RequestParam String returnDate,
+    Rent create( @PathVariable long orderId, @PathVariable long carId,  @RequestParam String rentDate, @RequestParam String returnDate,
                  @RequestParam BigDecimal totalPrice, @RequestParam int quantity)
     {
-
-         return rentService.create( carId, rentDate,  returnDate,  totalPrice,
-                quantity);
+        car = carService.read(carId);
+        order = orderService.read(orderId);
+        rent = RentFactory.getRent(car, rentDate,  returnDate,  totalPrice,quantity,order);
+         return rentService.create(rent);
 
     }
 
@@ -46,12 +53,24 @@ public class RentController
     }
 
 
-    @GetMapping (path="/updateRent")
-    public @ResponseBody Rent updateRent (@RequestParam Long rentId, @RequestParam Long carId, @RequestParam String rentDate, @RequestParam String returnDate,
+    @GetMapping (path="/{orderId}/{carId}/updateRent")
+    public @ResponseBody Rent updateRent (@PathVariable long orderId, @PathVariable long carId,
+                                          @RequestParam Long rentId,
+                                          @RequestParam String rentDate, @RequestParam String returnDate,
                                           @RequestParam BigDecimal totalPrice, @RequestParam int quantity) {
 
-        return rentService.update( rentId, carId, rentDate,  returnDate,  totalPrice,
-                quantity);
+        car = carService.read(carId);
+        order = orderService.read(orderId);
+
+        Rent rentUpdate = new Rent.Builder()
+                .id(rentId)
+                .rentDate(rentDate)
+                .returntDate(returnDate)
+                .totalPrice(totalPrice)
+                .quantity(quantity)
+                .build();
+
+        return rentService.update(rentUpdate);
     }
 
     @GetMapping (path="/deleteRent")
