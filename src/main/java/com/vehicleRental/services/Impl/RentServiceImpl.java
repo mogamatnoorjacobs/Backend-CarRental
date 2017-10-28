@@ -15,15 +15,10 @@ public class RentServiceImpl implements RentService
 {
     @Autowired
     private RentRepository rentRepository;
-    @Autowired
-    private CarRepository carRepository;
+
 
     @Override
-    public Rent create(Long carId, String rentDate, String returnDate, BigDecimal totalPrice, int quantity) {
-
-        Car car = carRepository.findCarsById(carId);
-        Rent rent = RentFactory.getRent(car, rentDate,  returnDate,  totalPrice,
-                quantity);
+    public Rent create(Rent rent) {
 
         return rentRepository.save(rent);
     }
@@ -34,18 +29,7 @@ public class RentServiceImpl implements RentService
     }
 
     @Override
-    public Rent update(Long rentId, Long carId, String rentDate, String returnDate, BigDecimal totalPrice, int quantity) {
-
-        Car car = carRepository.findCarsById(carId);
-        Rent rent = new Rent.Builder()
-                .rentDate(rentDate)
-                .car(car)
-                .id(rentId)
-                .quantity(quantity)
-                .returntDate(returnDate)
-                .totalPrice(totalPrice)
-                .build();
-
+    public Rent update(Rent rent) {
         return rentRepository.save(rent);
     }
 

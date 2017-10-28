@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * Created by thabomoopa on 2017/10/26.
  */
+
 @Controller
 @RequestMapping(path = "/car")
 public class CarController {
@@ -28,6 +29,7 @@ public class CarController {
     @Autowired
     private CategoryServiceImpl categoryService;
 
+    @CrossOrigin
     @GetMapping(path = "/{categoryId}/addCar")
     public @ResponseBody Car create(@PathVariable long categoryId, @RequestParam String make, @RequestParam String model, @RequestParam int year, @RequestParam int quantity)
     {
@@ -44,13 +46,14 @@ public class CarController {
 
         return carService.create(car);
     }
-
+    @CrossOrigin
     @GetMapping(path = "/readCar")
     public @ResponseBody Car read(@RequestParam long id)
     {
         return carService.read(id);
     }
 
+    @CrossOrigin
     //function to edit the car according to the transaction
     @GetMapping(path = "/updateCar")
     public @ResponseBody Car update(@RequestParam long id, @RequestParam String make, @RequestParam String model, @RequestParam int year, @RequestParam int quantity)
@@ -69,12 +72,14 @@ public class CarController {
         return carService.update(carUpdate);
     }
 
+    @CrossOrigin
     @GetMapping (path = "/deleteCar")
     public @ResponseBody void delete(@RequestParam long id)
     {
         carService.delete(id);
     }
 
+    @CrossOrigin
     //function to read all cars in the database and print to table
     @GetMapping(path = "/readAllCars")
     public @ResponseBody Iterable<Car> getAllCar()

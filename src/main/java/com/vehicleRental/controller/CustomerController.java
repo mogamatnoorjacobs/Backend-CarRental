@@ -24,6 +24,7 @@ public class CustomerController {
     private Customer customer;
 
 
+    @CrossOrigin
     //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&addressID=1
     @GetMapping(path = "/addCustomer")
     public
@@ -49,6 +50,7 @@ public class CustomerController {
         return customerService.create(customer);
     }
 
+    @CrossOrigin
     //http://localhost:8080/customer/findCustomerByID?customerID=1
     @GetMapping(path = "/findCustomerByID")
     public
@@ -57,6 +59,7 @@ public class CustomerController {
         return  customer = customerService.read(customerID);
     }
 
+    @CrossOrigin
     @GetMapping(path = "/updateCustomer")
     public
     @ResponseBody
@@ -82,7 +85,7 @@ public class CustomerController {
         return customerService.update(customerUpdate);
     }
 
-
+    @CrossOrigin
     @GetMapping(path = "/deleteCustomer")
     public
     @ResponseBody
@@ -90,10 +93,11 @@ public class CustomerController {
         customerService.delete(customerID);
     }
 
+    @CrossOrigin
     @GetMapping(path = "/findAll")
     public @ResponseBody Iterable<Customer> getAllCustomers()
     {
-        return customerService.findAll(); 
+        return customerService.findAll();
     }
 
 

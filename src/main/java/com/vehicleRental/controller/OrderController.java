@@ -1,15 +1,12 @@
 package com.vehicleRental.controller;
 
 import com.vehicleRental.domain.Customer;
-import com.vehicleRental.domain.Order;
+import com.vehicleRental.domain.Orders;
 import com.vehicleRental.factories.OrderFactory;
 import com.vehicleRental.services.Impl.CustomerServiceImpl;
 import com.vehicleRental.services.Impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 public class OrderController {
 
@@ -21,39 +18,40 @@ public class OrderController {
     @Autowired
     OrderServiceImpl orderService;
 
-    private Order order;
+    private Orders orders;
 
     private Customer customer;
 
+    @CrossOrigin
     @GetMapping(path="/{customerId}/addOrder")
     public @ResponseBody
-    Order create(@PathVariable long customerId, @RequestParam String orderDate)
+    Orders create(@PathVariable long customerId, @RequestParam String orderDate)
     {
         customer = customerService.read(customerId);
-        order = OrderFactory.getOrder(orderDate,customer);//,  customer);
-        return  orderService.create(order);
+        orders = OrderFactory.getOrder(orderDate,customer);//,  customer);
+        return  orderService.create(orders);
     }
-
+    @CrossOrigin
     @GetMapping (path="/{customerId}/findOrder")
-    public @ResponseBody Order findByCustomer (@PathVariable long customerId, @RequestParam Long id)
+    public @ResponseBody Orders findByCustomer (@PathVariable long customerId, @RequestParam Long id)
     {
         return orderService.read(id);
     }
 
-
+    @CrossOrigin
     @GetMapping (path="/{customerId}/updateOrder")
-    public @ResponseBody Order updateOrder (@PathVariable long customerId,@RequestParam long id, @RequestParam String orderDate) {
+    public @ResponseBody Orders updateOrder (@PathVariable long customerId,@RequestParam long id, @RequestParam String orderDate) {
 
 
         orderService.read(id);
-        Order orderUpdate = new Order.Builder()
+        Orders orderUpdate = new Orders.Builder()
                 .id(id)
                 .orderDate(orderDate)
                 .build();
 
         return orderService.update(orderUpdate);
     }
-
+    @CrossOrigin
     @GetMapping (path="/{customerId}/deleteOrder")
     public @ResponseBody void updateOrder (@RequestParam Long id) {
         orderService.delete(id);
