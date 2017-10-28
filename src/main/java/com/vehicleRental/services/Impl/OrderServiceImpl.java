@@ -1,6 +1,6 @@
 package com.vehicleRental.services.Impl;
 
-import com.vehicleRental.domain.Order;
+import com.vehicleRental.domain.Orders;
 import com.vehicleRental.repositories.OrderRepository;
 import com.vehicleRental.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,18 +13,18 @@ public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
 
     @Override
-    public Order create(Order order) {
-        return orderRepository.save(order);
+    public Orders create(Orders orders) {
+        return orderRepository.save(orders);
     }
 
     @Override
-    public Order read(long id) {
+    public Orders read(long id) {
         return orderRepository.findOne(id);
     }
 
     @Override
-    public Order update(Order order) {
-        return orderRepository.save(order);
+    public Orders update(Orders orders) {
+        return orderRepository.save(orders);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 //    @Override
-//    public Order findByCustomer(long id) {
+//    public Orders findByCustomer(long id) {
 //        return null;
 //    }
 }
