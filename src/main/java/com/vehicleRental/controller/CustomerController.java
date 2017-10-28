@@ -1,7 +1,9 @@
 package com.vehicleRental.controller;
 
+import com.vehicleRental.domain.Address;
 import com.vehicleRental.domain.Customer;
 import com.vehicleRental.factories.CustomerFactory;
+import com.vehicleRental.services.Impl.AddressServiceImpl;
 import com.vehicleRental.services.Impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,58 +14,57 @@ import org.springframework.web.bind.annotation.*;
  */
 @Controller
 @RequestMapping(path = "/customer")
-public class CustomerController {@Autowired
-private CustomerServiceImpl customerService;
+public class CustomerController {
+
+
+    @Autowired
+    private CustomerServiceImpl customerService;
+
+    @Autowired
+    private AddressServiceImpl addressService;
+
     private Customer customer;
 
+    private Address address;
+
     //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&addressID=1
-    @GetMapping(path = "/addCustomer")
+    @GetMapping(path = "{addressId}/addCustomer")
     public
     @ResponseBody
-    String addCustomer(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @RequestParam long addressID) {
-        customer = CustomerFactory.getCustomer(name, surname, email, addressID);
-        customerService.create(customer);
-        return "Saved";
+    Customer addCustomer(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @PathVariable long addressId) {
+
+        address = addressService.read(addressId);
+        customer = CustomerFactory.getCustomer(name, surname, email, address);
+
+        return customerService.create(customer);
     }
 
-    @GetMapping(path = "/findCustomerByName/{name}")
-    public
-    @ResponseBody
-    Customer findCustomerByName(@PathVariable String name) {
-
-        customer = customerService.findByName(name);
-
-        return customer;
-    }
     //http://localhost:8080/customer/findCustomerByID?customerID=1
     @GetMapping(path = "/findCustomerByID")
     public
     @ResponseBody
     Customer findCustomerByID(long customerID) {
-        //   long custId=Long.pargseLong(customerID);
-        customer = customerService.read(customerID);
-
-        return customer;
+        return  customer = customerService.read(customerID);
     }
 
     @GetMapping(path = "/updateCustomer")
     public
     @ResponseBody
-    String updateCustomer(String name, String surname, String email, long addressID) {
-        Customer customer = CustomerFactory.getCustomer(name, surname, email, addressID);
-        customerService.create(customer);
-        return "Saved";
+    Customer updateCustomer(String name, String surname, String email, Address address) {
+
+
+        customer = CustomerFactory.getCustomer(name, surname, email, address);
+
+        return customerService.create(customer);
     }
 
 
     @GetMapping(path = "/deleteCustomer")
     public
     @ResponseBody
-    String deleteCustomer( long  customerID) {
+    void deleteCustomer(long customerID) {
 
         customerService.delete(customerID);
-
-        return "Customer deleted";
     }
 
 

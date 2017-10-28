@@ -16,7 +16,7 @@ public class Customer implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name,surname,email;
-    private long addressID;
+    private Address address;
 
     private Customer(){
     }
@@ -37,8 +37,8 @@ public class Customer implements Serializable{
         return email;
     }
 
-    public long getAddressID() {
-        return addressID;
+    public Address getAddress() {
+        return address;
     }
 
     public Customer(Builder builder)
@@ -47,14 +47,19 @@ public class Customer implements Serializable{
         this.name = builder.name;
         this.surname = builder.surname;
         this.email=builder.email;
-        this.addressID=builder.addressID;
+        this.address=builder.address;
     }
 
     public static class Builder{
         private long id;
         private String name,surname,email;
-        private long addressID;
+        private Address address;
 
+        public Builder address(Address value)
+        {
+            this.address = value;
+            return this;
+        }
         public Builder id(Long value)
         {
             this.id = value;
@@ -76,12 +81,6 @@ public class Customer implements Serializable{
         public Builder email(String value)
         {
             this.email=value;
-            return this;
-        }
-
-        public Builder addressID(Long value)
-        {
-            this.addressID = value;
             return this;
         }
 

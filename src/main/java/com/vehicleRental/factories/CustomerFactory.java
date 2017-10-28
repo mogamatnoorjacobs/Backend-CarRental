@@ -1,5 +1,6 @@
 package com.vehicleRental.factories;
 
+import com.vehicleRental.domain.Address;
 import com.vehicleRental.domain.Customer;
 
 /**
@@ -7,13 +8,13 @@ import com.vehicleRental.domain.Customer;
  */
 public class CustomerFactory
 {
-    public static Customer getCustomer(String name, String surname, String email, long addressID)
+    public static Customer getCustomer(String name, String surname, String email, Address address)
     {
         Customer customer = new Customer.Builder()
                 .name(name)
                 .surname(surname)
                 .email(email)
-                .addressID(addressID)
+                .address(address)
                 .build();
         return customer;
     }
