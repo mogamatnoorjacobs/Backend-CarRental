@@ -26,7 +26,7 @@ public class CategoryController {
     public @ResponseBody Category create(@RequestParam String name, @RequestParam double price)
     {
         category = CategoryFactory.getCategory(name, price);
-       return  categoryService.create(category);
+        return  categoryService.create(category);
     }
 
     @GetMapping (path="/findByName")
@@ -35,4 +35,9 @@ public class CategoryController {
         return categoryService.findByName(name);
     }
 
+    @GetMapping (path = "/readAll")
+    public @ResponseBody Iterable<Category> getCategory()
+    {
+        return categoryService.readAll();
+    }
 }
