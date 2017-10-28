@@ -13,27 +13,27 @@ public class OrderServiceImpl implements OrderService {
     OrderRepository orderRepository;
 
     @Override
-    public Order create(Order Order) {
-        return null;
+    public Order create(Order order) {
+        return orderRepository.save(order);
     }
 
     @Override
     public Order read(long id) {
-        return null;
+        return orderRepository.findOne(id);
     }
 
     @Override
-    public Order update(Order Order, Long id, Long customerId) {
-        return null;
+    public Order update(Order order) {
+        return orderRepository.save(order);
     }
 
     @Override
     public void delete(long id) {
-
+        orderRepository.delete(id);
     }
 
-    @Override
-    public Order findByCustomer(Long id) {
-        return null;
-    }
+//    @Override
+//    public Order findByCustomer(long id) {
+//        return null;
+//    }
 }
