@@ -36,7 +36,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer findByName(String name) {
-        return customerRepository.findByName(name);
+    public Iterable<Customer> findAll() {
+        return customerRepository.findAll();
     }
+
 }
