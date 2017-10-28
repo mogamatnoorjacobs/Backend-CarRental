@@ -51,19 +51,19 @@ public class CarController {
         return carService.read(id);
     }
 
-    @GetMapping(path = "/{categoryId}/updateCar")
-    public @ResponseBody Car update(@PathVariable long categoryId,@RequestParam long id, @RequestParam String make, @RequestParam String model, @RequestParam int year, @RequestParam int quantity)
+    //function to edit the car according to the transaction
+    @GetMapping(path = "/updateCar")
+    public @ResponseBody Car update(@RequestParam long id, @RequestParam String make, @RequestParam String model, @RequestParam int year, @RequestParam int quantity)
     {
 
-        category = categoryService.read(categoryId);
+        //category = categoryService.read(categoryId);
         carService.read(id);
         Car carUpdate = new Car.Builder()
-               .id(id)
+                .id(id)
                .make(make)
                .model(model)
                .year(year)
                .quantity(quantity)
-               .category(category)
                .build();
 
         return carService.update(carUpdate);
@@ -75,14 +75,11 @@ public class CarController {
         carService.delete(id);
     }
 
-    @GetMapping(path = "/{categoryId}/readAll")
-    public @ResponseBody Car findAll(@PathVariable long categoryId)
-    {
-        return carService.read(categoryId);
-    }
+    //function to read all cars in the database and print to table
     @GetMapping(path = "/readAllCars")
     public @ResponseBody Iterable<Car> getAllCar()
     {
         return carService.readAll();
     }
+
 }

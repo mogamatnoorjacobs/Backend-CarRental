@@ -1,6 +1,7 @@
 package com.vehicleRental.services.Impl;
 
 import com.vehicleRental.domain.Car;
+import com.vehicleRental.domain.Category;
 import com.vehicleRental.repositories.CarRepository;
 import com.vehicleRental.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +36,18 @@ public class CarServiceImpl implements CarService {
         carRepository.delete(id);
     }
 
+    //function to read all cars in the database and print to table
     @Override
     public Iterable<Car> readAll() {
         return carRepository.findAll();
     }
 
+
+    //function to read all cars based on the category
     @Override
-    public Iterable<Car> findAllById(long id) {
-        return carRepository.findAllById(id);
+    public Iterable<Car> findAllById(Category category) {
+
+        return carRepository.findAllById(category);
     }
 
 
