@@ -33,11 +33,15 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public void delete(long id) {
         categoryRepository.delete(id);
-
     }
 
     @Override
     public Category findByName(String name) {
         return categoryRepository.findByName(name);
+    }
+
+    @Override
+    public Iterable<Category> readAll() {
+        return categoryRepository.findAll();
     }
 }
