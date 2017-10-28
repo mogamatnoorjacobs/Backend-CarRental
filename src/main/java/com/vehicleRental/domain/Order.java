@@ -1,16 +1,17 @@
 package com.vehicleRental.domain;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
-
+@Entity
 public class Order  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    //private Customer customer;
+    private long id;
+
+    @ManyToOne
+    private Customer customer;
+
     private String orderDate;
 
     public Order(){}
@@ -18,19 +19,19 @@ public class Order  implements Serializable {
     public Order(Builder builder) {
         this.id = builder.id;
         this.orderDate = builder.orderDate;
-        //this.customer = builder.customer;
+        this.customer = builder.customer;
     }
 
     public static class Builder{
         private Long id;
-        //private Customer customer;
+        private Customer customer;
             private String orderDate;
 
-//        public Builder customer(Customer value)
-//        {
-//            this.customer = value;
-//            return this;
-//        }
+        public Builder customer(Customer value)
+        {
+            this.customer = value;
+            return this;
+        }
 
         public Builder id(long value)
         {
@@ -58,13 +59,13 @@ public class Order  implements Serializable {
         this.id = id;
     }
 
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 
     public String getOrderDate() {
         return orderDate;
