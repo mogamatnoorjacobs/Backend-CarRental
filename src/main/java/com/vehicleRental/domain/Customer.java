@@ -16,7 +16,12 @@ public class Customer implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name,surname,email;
-    private Address address;
+    private int houseNumber;
+    private String city;
+    private String province;
+    private int postalCode;
+    private String complex;
+    private String street;
 
     private Customer(){
     }
@@ -37,8 +42,28 @@ public class Customer implements Serializable{
         return email;
     }
 
-    public Address getAddress() {
-        return address;
+    public int getHouseNumber() {
+        return houseNumber;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public int getPostalCode() {
+        return postalCode;
+    }
+
+    public String getComplex() {
+        return complex;
+    }
+
+    public String getStreet() {
+        return street;
     }
 
     public Customer(Builder builder)
@@ -47,17 +72,52 @@ public class Customer implements Serializable{
         this.name = builder.name;
         this.surname = builder.surname;
         this.email=builder.email;
-        this.address=builder.address;
+        this.houseNumber = builder.houseNumber;
+        this.city = builder.city;
+        this.province = builder.province;
+        this.postalCode = builder.postalCode;
+        this.complex = builder.complex;
+        this.street = builder.street;
     }
 
     public static class Builder{
         private long id;
         private String name,surname,email;
-        private Address address;
+        private int houseNumber;
+        private String city;
+        private String province;
+        private int postalCode;
+        private String complex;
+        private String street;
 
-        public Builder address(Address value)
+        public Builder houseNumber(int value)
         {
-            this.address = value;
+            this.houseNumber = value;
+            return this;
+        }
+        public Builder city(String value)
+        {
+            this.city = value;
+            return this;
+        }
+        public Builder province(String value)
+        {
+            this.province = value;
+            return this;
+        }
+        public Builder postalCode(int value)
+        {
+            this.postalCode = value;
+            return this;
+        }
+        public Builder complex(String value)
+        {
+            this.complex = value;
+            return this;
+        }
+        public Builder street(String value)
+        {
+            this.street = value;
             return this;
         }
         public Builder id(Long value)

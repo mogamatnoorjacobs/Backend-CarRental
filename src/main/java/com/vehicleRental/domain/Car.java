@@ -18,6 +18,7 @@ public class Car implements Serializable {
     private int year;
     private int quantity;
 
+
     @ManyToOne
     private Category category;
 

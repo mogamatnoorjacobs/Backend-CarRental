@@ -1,13 +1,14 @@
 package com.vehicleRental.controller;
 
-import com.vehicleRental.domain.Address;
 import com.vehicleRental.domain.Customer;
 import com.vehicleRental.factories.CustomerFactory;
-import com.vehicleRental.services.Impl.AddressServiceImpl;
 import com.vehicleRental.services.Impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Noor on 28/10/2017.
@@ -20,21 +21,30 @@ public class CustomerController {
     @Autowired
     private CustomerServiceImpl customerService;
 
-    @Autowired
-    private AddressServiceImpl addressService;
-
     private Customer customer;
 
-    private Address address;
 
     //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&addressID=1
-    @GetMapping(path = "{addressId}/addCustomer")
+    @GetMapping(path = "/addCustomer")
     public
     @ResponseBody
-    Customer addCustomer(@RequestParam String name, @RequestParam String surname, @RequestParam String email, @PathVariable long addressId) {
+    Customer addCustomer(@RequestParam String name, @RequestParam String surname, @RequestParam String email,
+                         @RequestParam String city, @RequestParam String province, @RequestParam String complex,
+                         @RequestParam String street, @RequestParam int houseNumber, @RequestParam int postalCode)
+                         {
+        Map<String, String> stringValues = new HashMap<String, String>();
+        Map<String, Integer> intValues = new HashMap<String, Integer>();
+        stringValues.put("name", name);
+        stringValues.put("surname", surname);
+        stringValues.put("email", email);
+        stringValues.put("city", city);
+        stringValues.put("province", province);
+        stringValues.put("complex", complex);
+        stringValues.put("street", street);
+        intValues.put("houseNumber", houseNumber);
+        intValues.put("postalCode", postalCode);
 
-        address = addressService.read(addressId);
-        customer = CustomerFactory.getCustomer(name, surname, email, address);
+        customer = CustomerFactory.getCustomer(stringValues, intValues);
 
         return customerService.create(customer);
     }
@@ -50,12 +60,26 @@ public class CustomerController {
     @GetMapping(path = "/updateCustomer")
     public
     @ResponseBody
-    Customer updateCustomer(String name, String surname, String email, Address address) {
+    Customer updateCustomer(@RequestParam long id, @RequestParam String name, @RequestParam String surname, @RequestParam String email,
+                            @RequestParam String city, @RequestParam String province, @RequestParam String complex,
+                            @RequestParam String street, @RequestParam int houseNumber, @RequestParam int postalCode) {
 
 
-        customer = CustomerFactory.getCustomer(name, surname, email, address);
+        customerService.read(id);
+        Customer customerUpdate = new Customer.Builder()
+                .id(id)
+                .name(name)
+                .surname(surname)
+                .email(email)
+                .city(city)
+                .province(province)
+                .complex(complex)
+                .street(street)
+                .houseNumber(houseNumber)
+                .postalCode(postalCode)
+                .build();
 
-        return customerService.create(customer);
+        return customerService.update(customerUpdate);
     }
 
 
@@ -63,11 +87,14 @@ public class CustomerController {
     public
     @ResponseBody
     void deleteCustomer(long customerID) {
-
         customerService.delete(customerID);
     }
 
-
+    @GetMapping(path = "/findAll")
+    public @ResponseBody Iterable<Customer> getAllCustomers()
+    {
+        return customerService.findAll(); 
+    }
 
 
 }

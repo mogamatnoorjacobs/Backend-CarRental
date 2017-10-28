@@ -10,5 +10,5 @@ public interface CustomerService {
     Customer read(long id);
     Customer update(Customer customer);
     void delete(long id);
-    Customer findByName(String name);
+    Iterable<Customer> findAll();
 }
