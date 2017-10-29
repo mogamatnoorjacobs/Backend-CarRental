@@ -31,18 +31,19 @@ public class CarController {
 
     @CrossOrigin
     @GetMapping(path = "/{categoryId}/addCar")
-    public @ResponseBody Car create(@PathVariable long categoryId, @RequestParam String make, @RequestParam String model, @RequestParam int year, @RequestParam int quantity)
+    public @ResponseBody Car create(@PathVariable long categoryId,
+                                    @RequestParam String make, @RequestParam String model,
+                                    @RequestParam int year, @RequestParam String numberPlate,
+                                    @RequestParam boolean status)
     {
         Map<String, String> stringValues = new HashMap<String, String>();
-        Map<String, Integer> intValues = new HashMap<String, Integer>();
         stringValues.put("make", make);
         stringValues.put("model", model);
-        intValues.put("year", year);
-        intValues.put("quantity", quantity);
+        stringValues.put("numberPlate", numberPlate);
 
         category = categoryService.read(categoryId);
 
-        car = CarFactory.getCar(category, stringValues, intValues);
+        car = CarFactory.getCar(category, stringValues, year, status);
 
         return carService.create(car);
     }
@@ -56,7 +57,9 @@ public class CarController {
     @CrossOrigin
     //function to edit the car according to the transaction
     @GetMapping(path = "/updateCar")
-    public @ResponseBody Car update(@RequestParam long id, @RequestParam String make, @RequestParam String model, @RequestParam int year, @RequestParam int quantity)
+    public @ResponseBody Car update(@RequestParam long id, @RequestParam String make, @RequestParam String model,
+                                    @RequestParam int year, @RequestParam String numberPlate,
+                                    @RequestParam boolean status)
     {
 
         //category = categoryService.read(categoryId);
@@ -66,7 +69,8 @@ public class CarController {
                .make(make)
                .model(model)
                .year(year)
-               .quantity(quantity)
+               .numberPlate(numberPlate)
+                .status(status)
                .build();
 
         return carService.update(carUpdate);

@@ -25,8 +25,7 @@ public class CustomerController {
 
 
     @CrossOrigin
-    //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&addressID=1
-    @GetMapping(path = "/addCustomer")
+    //http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&city=Cape+town&province=western+cape&complex=rosenvale&street=kaapzchit&houseNumber=1&postalCode=0123    @GetMapping(path = "/addCustomer")
     public
     @ResponseBody
     Customer addCustomer(@RequestParam String name, @RequestParam String surname, @RequestParam String email,

@@ -16,7 +16,8 @@ public class Car implements Serializable {
     private String make;
     private String model;
     private int year;
-    private int quantity;
+    private String numberPlate;
+    private boolean status;
 
 
     @ManyToOne
@@ -31,8 +32,9 @@ public class Car implements Serializable {
         this.make = builder.make;
         this.model = builder.model;
         this.year = builder.year;
-        this.quantity = builder.quantity;
+        this.numberPlate = builder.numberPlate;
         this.category = builder.category;
+        this.status = builder.status;
     }
 
     public static class Builder{
@@ -40,7 +42,8 @@ public class Car implements Serializable {
         private String make;
         private String model;
         private int year;
-        private int quantity;
+        private String numberPlate;
+        private boolean status;
         private Category category;
 
         public Builder id(long value)
@@ -63,9 +66,14 @@ public class Car implements Serializable {
             this.year = value;
             return this;
         }
-        public Builder quantity(int value)
+        public Builder numberPlate(String value)
         {
-            this.quantity = value;
+            this.numberPlate = value;
+            return this;
+        }
+        public Builder status(boolean value)
+        {
+            this.status = value;
             return this;
         }
         public Builder category(Category value)
@@ -95,8 +103,12 @@ public class Car implements Serializable {
         return year;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public String getNumberPlate() {
+        return numberPlate;
+    }
+
+    public boolean isStatus() {
+        return status;
     }
 
     public Category getCategory() {

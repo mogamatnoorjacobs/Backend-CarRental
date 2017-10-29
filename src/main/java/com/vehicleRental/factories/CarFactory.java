@@ -9,19 +9,14 @@ import java.util.Map;
  * Created by thabomoopa on 2017/10/26.
  */
 public class CarFactory {
-    public static Car getCar(Category category, Map<String, String> stringValues, Map<String, Integer> intValues)
+    public static Car getCar(Category category, Map<String, String> stringValues, int year, boolean status)
     {
         Car car = new Car.Builder()
-//                .make(make)
-//                .model(model)
-//                .quantity(quantity)
-//                .year(year)
-//                .category(category)
-//                .build();
                 .make(stringValues.get("make"))
                 .model(stringValues.get("model"))
-                .quantity(intValues.get("quantity"))
-                .year(intValues.get("year"))
+                .numberPlate(stringValues.get("numberPlate"))
+                .status(status)
+                .year(year)
                 .category(category)
                 .build();
         return car;

@@ -37,7 +37,8 @@ public class RentController
     @CrossOrigin
     @GetMapping(path="/{orderId}/{carId}/rentCar")
     public @ResponseBody
-    Rent create( @PathVariable long orderId, @PathVariable long carId,  @RequestParam String rentDate, @RequestParam String returnDate,
+    Rent create( @PathVariable long orderId, @PathVariable long carId,
+                 @RequestParam String rentDate, @RequestParam String returnDate,
                  @RequestParam BigDecimal totalPrice, @RequestParam int quantity)
     {
         car = carService.read(carId);
