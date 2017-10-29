@@ -43,6 +43,7 @@ public class RentController
     {
         car = carService.read(carId);
         order = orderService.read(orderId);
+
         rent = RentFactory.getRent(car, rentDate,returnDate,totalPrice,order, rentalDays );
          return rentService.create(rent);
 
