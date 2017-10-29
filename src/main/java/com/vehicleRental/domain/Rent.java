@@ -15,6 +15,7 @@ public class Rent implements Serializable
     private String rentDate;
     private String returntDate;
     private BigDecimal totalPrice;
+    private int rentalDays;
 
 
     @OneToOne
@@ -40,6 +41,10 @@ public class Rent implements Serializable
         return car;
     }
 
+    public int getRentalDays() {
+        return rentalDays;
+    }
+
     public Orders getOrder() {
         return order;
     }
@@ -51,6 +56,7 @@ public class Rent implements Serializable
         this.rentDate = builder.rentDate;
         this.returntDate = builder.returntDate;
         this.totalPrice = builder.totalPrice;
+        this.rentalDays = builder.rentalDays;
 
         this.car = builder.car;
     }
@@ -62,7 +68,13 @@ public class Rent implements Serializable
         private BigDecimal totalPrice;
         private Car car;
         private Orders order;
+        private int rentalDays;
 
+        public Builder rentalDays(int value)
+        {
+            this.rentalDays = value;
+            return this;
+        }
         public Builder order(Orders value)
         {
             this.order = value;
