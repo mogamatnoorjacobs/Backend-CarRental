@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
 
-
     @Autowired
     CustomerServiceImpl customerService;
 
@@ -35,7 +34,7 @@ public class OrderController {
     }
     @CrossOrigin
     @GetMapping (path="/{customerId}/findOrder")
-    public @ResponseBody Orders findByCustomer (@PathVariable long customerId, @RequestParam Long id)
+    public @ResponseBody Orders findByCustomer (@PathVariable long customerId, @RequestParam long id)
     {
         return orderService.read(id);
     }
