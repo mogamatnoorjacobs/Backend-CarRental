@@ -39,11 +39,11 @@ public class RentController
     public @ResponseBody
     Rent create( @PathVariable long orderId, @PathVariable long carId,
                  @RequestParam String rentDate, @RequestParam String returnDate,
-                 @RequestParam BigDecimal totalPrice, @RequestParam int quantity)
+                 @RequestParam BigDecimal totalPrice)
     {
         car = carService.read(carId);
         order = orderService.read(orderId);
-        rent = RentFactory.getRent(car, rentDate,  returnDate,  totalPrice,quantity,order);
+        rent = RentFactory.getRent(car, rentDate,returnDate, totalPrice,order);
          return rentService.create(rent);
 
     }
@@ -60,7 +60,7 @@ public class RentController
     public @ResponseBody Rent updateRent (@PathVariable long orderId, @PathVariable long carId,
                                           @RequestParam Long rentId,
                                           @RequestParam String rentDate, @RequestParam String returnDate,
-                                          @RequestParam BigDecimal totalPrice, @RequestParam int quantity) {
+                                          @RequestParam BigDecimal totalPrice) {
 
         car = carService.read(carId);
         order = orderService.read(orderId);
@@ -70,7 +70,6 @@ public class RentController
                 .rentDate(rentDate)
                 .returntDate(returnDate)
                 .totalPrice(totalPrice)
-                .quantity(quantity)
                 .build();
 
         return rentService.update(rentUpdate);
