@@ -2,12 +2,12 @@ package com.vehicleRental.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+//just added to commit new changes ignore this
 /**
  * Created by Vulombe on 29/10/2017.
  */
 @Entity
-public class Invoice implements Serializable
+public class Invoices implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +17,7 @@ public class Invoice implements Serializable
     @JoinColumn(name = "customerID")
     private  Customer customer;
 
-    private Invoice(){}
+    private Invoices(){}
     public long getId() {
         return id;
     }
@@ -25,7 +25,7 @@ public class Invoice implements Serializable
         return customer;
     }
 
-    public Invoice(Builder builder)
+    public Invoices(Builder builder)
     {
         this.id = builder.id;
         this.customer = builder.customer;
@@ -48,9 +48,9 @@ public class Invoice implements Serializable
             return this;
         }
 
-        public Invoice build()
+        public Invoices build()
         {
-            return new Invoice(this);
+            return new Invoices(this);
         }
     }
 
@@ -59,9 +59,9 @@ public class Invoice implements Serializable
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Invoice invoice = (Invoice) o;
+        Invoices invoices = (Invoices) o;
 
-        return id == invoice.id;
+        return id == invoices.id;
     }
 
     @Override

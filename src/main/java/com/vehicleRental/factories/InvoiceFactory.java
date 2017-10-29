@@ -1,18 +1,20 @@
 package com.vehicleRental.factories;
 
 import com.vehicleRental.domain.Customer;
-import com.vehicleRental.domain.Invoice;
+import com.vehicleRental.domain.Invoices;
 
+//just added to commit new changes ignore this
 /**
  * Created by Vulombe on 29/10/2017.
  */
+
 public class InvoiceFactory
 {
-    public  static Invoice getInvoice(Customer customer)
+    public  static Invoices getInvoice(Customer customer)
     {
-        Invoice invoice = new Invoice.Builder()
+        Invoices invoices = new Invoices.Builder()
                 .customer(customer)
                 .build();
-        return invoice;
+        return invoices;
     }
 }

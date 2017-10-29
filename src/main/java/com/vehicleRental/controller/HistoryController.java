@@ -1,12 +1,10 @@
 package com.vehicleRental.controller;
 
 import com.vehicleRental.domain.History;
-import com.vehicleRental.domain.Invoice;
+import com.vehicleRental.domain.Invoices;
 import com.vehicleRental.factories.HistoryFactory;
-import com.vehicleRental.services.HistoryService;
 import com.vehicleRental.services.Impl.HistoryServiceImpl;
 import com.vehicleRental.services.Impl.InvoiceServiceImpl;
-import com.vehicleRental.services.Impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +20,7 @@ import java.util.Map;
 public class HistoryController
 {
     private History history;
-    private Invoice invoice;
+    private Invoices invoices;
 
     @Autowired
     private HistoryServiceImpl historyService;
@@ -41,8 +39,8 @@ public class HistoryController
         values.put("model",model);
         values.put("numberPlate",numberPlate);
         values.put("orderDate",orderDate);
-        invoice = invoiceService.read(invoiceID);
-        history = HistoryFactory.getHistory(values, year,invoice);
+        invoices = invoiceService.read(invoiceID);
+        history = HistoryFactory.getHistory(values, year, invoices);
 
         return historyService.create(history);
     }
@@ -60,7 +58,7 @@ public class HistoryController
     @ResponseBody History updateHistory(@PathVariable long historyId, @RequestParam String make, @RequestParam String model,
                                 @RequestParam int year, @RequestParam String numberPlate,@PathVariable long invoiceID,@RequestParam String orderDate)
     {
-        invoice = invoiceService.read(invoiceID);
+        invoices = invoiceService.read(invoiceID);
         history = historyService.read(historyId);
         History historyUpdate = new History.Builder()
                     .id(historyId)

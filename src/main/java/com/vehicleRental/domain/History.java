@@ -18,7 +18,7 @@ public class History implements Serializable
     private String numberPlate ;
     private String  orderDate;
     @ManyToOne
-    private Invoice invoice;
+    private Invoices invoices;
 
     private History(){}
 
@@ -30,7 +30,7 @@ public class History implements Serializable
         this.year = builder.year;
         this.numberPlate = builder.numberPlate;
         this.orderDate = builder.orderDate;
-        this.invoice = builder.invoice;
+        this.invoices = builder.invoices;
     }
 
     public long getId() {
@@ -51,8 +51,8 @@ public class History implements Serializable
     public String getOrderDate() {
         return orderDate;
     }
-    public Invoice getInvoice() {
-        return invoice;
+    public Invoices getInvoices() {
+        return invoices;
     }
 
     public static class Builder{
@@ -62,7 +62,7 @@ public class History implements Serializable
         private  int year;
         private String  numberPlate;
         private String  orderDate;
-        private Invoice invoice;
+        private Invoices invoices;
 
 
         public Builder id(long value)
@@ -95,9 +95,9 @@ public class History implements Serializable
             return this;
         }
 
-        public Builder invoice(Invoice value)
+        public Builder invoice(Invoices value)
         {
-            this.invoice = value;
+            this.invoices = value;
             return this;
         }
 
