@@ -34,6 +34,13 @@ public class CategoryController {
     }
 
     @CrossOrigin
+    @GetMapping (path="/read")
+    public @ResponseBody Category read(@RequestParam long id)
+    {
+        return categoryService.read(id);
+    }
+
+    @CrossOrigin
     @GetMapping (path = "/readAll")
     public @ResponseBody Iterable<Category> getCategory()
     {
