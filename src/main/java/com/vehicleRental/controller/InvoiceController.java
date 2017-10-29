@@ -31,7 +31,7 @@ public class InvoiceController
     @CrossOrigin
     @GetMapping(path="/{customerId}/addInvoice")
     public @ResponseBody
-    Invoices create(@PathVariable long customerId, @RequestParam String orderDate)
+    Invoices create(@PathVariable long customerId)
     {
         customer = customerService.read(customerId);
         invoices = InvoiceFactory.getInvoice(customer);
