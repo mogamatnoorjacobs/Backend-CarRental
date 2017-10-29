@@ -60,7 +60,7 @@ public class InvoiceController
         return invoiceService.update(invoiceUpdate);
     }
     @CrossOrigin
-    @GetMapping (path="/{customerId}/deleteInvoicer")
+    @GetMapping (path="/{customerId}/deleteInvoice")
     public @ResponseBody void updateOrder (@RequestParam Long id) {
         invoiceService.delete(id);
 
