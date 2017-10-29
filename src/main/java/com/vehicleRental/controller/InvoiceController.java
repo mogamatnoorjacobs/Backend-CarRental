@@ -52,12 +52,12 @@ public class InvoiceController
 
 
         invoiceService.read(id);
-        Invoices orderUpdate = new Invoices.Builder()
+        Invoices invoiceUpdate = new Invoices.Builder()
                 .id(id)
                 .customer(customer)
                 .build();
 
-        return invoiceService.update(orderUpdate);
+        return invoiceService.update(invoiceUpdate);
     }
     @CrossOrigin
     @GetMapping (path="/{customerId}/deleteInvoicer")
