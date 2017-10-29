@@ -15,6 +15,7 @@ import java.util.Map;
 /**
  * Created by thabomoopa on 2017/10/26.
  */
+
 @Controller
 @RequestMapping(path = "/car")
 public class CarController {
@@ -28,61 +29,66 @@ public class CarController {
     @Autowired
     private CategoryServiceImpl categoryService;
 
+    @CrossOrigin
     @GetMapping(path = "/{categoryId}/addCar")
-    public @ResponseBody Car create(@PathVariable long categoryId, @RequestParam String make, @RequestParam String model, @RequestParam int year, @RequestParam int quantity)
+    public @ResponseBody Car create(@PathVariable long categoryId,
+                                    @RequestParam String make, @RequestParam String model,
+                                    @RequestParam int year, @RequestParam String numberPlate,
+                                    @RequestParam boolean status)
     {
         Map<String, String> stringValues = new HashMap<String, String>();
-        Map<String, Integer> intValues = new HashMap<String, Integer>();
         stringValues.put("make", make);
         stringValues.put("model", model);
-        intValues.put("year", year);
-        intValues.put("quantity", quantity);
+        stringValues.put("numberPlate", numberPlate);
 
         category = categoryService.read(categoryId);
 
-        car = CarFactory.getCar(category, stringValues, intValues);
+        car = CarFactory.getCar(category, stringValues, year, status);
 
         return carService.create(car);
     }
-
+    @CrossOrigin
     @GetMapping(path = "/readCar")
     public @ResponseBody Car read(@RequestParam long id)
     {
         return carService.read(id);
     }
 
-    @GetMapping(path = "/{categoryId}/updateCar")
-    public @ResponseBody Car update(@PathVariable long categoryId,@RequestParam long id, @RequestParam String make, @RequestParam String model, @RequestParam int year, @RequestParam int quantity)
+    @CrossOrigin
+    //function to edit the car according to the transaction
+    @GetMapping(path = "/updateCar")
+    public @ResponseBody Car update(@RequestParam long id, @RequestParam String make, @RequestParam String model,
+                                    @RequestParam int year, @RequestParam String numberPlate,
+                                    @RequestParam boolean status)
     {
 
-        category = categoryService.read(categoryId);
+        //category = categoryService.read(categoryId);
         carService.read(id);
         Car carUpdate = new Car.Builder()
-               .id(id)
+                .id(id)
                .make(make)
                .model(model)
                .year(year)
-               .quantity(quantity)
-               .category(category)
+               .numberPlate(numberPlate)
+                .status(status)
                .build();
 
         return carService.update(carUpdate);
     }
 
+    @CrossOrigin
     @GetMapping (path = "/deleteCar")
     public @ResponseBody void delete(@RequestParam long id)
     {
         carService.delete(id);
     }
 
-    @GetMapping(path = "/{categoryId}/readAll")
-    public @ResponseBody Car findAll(@PathVariable long categoryId)
-    {
-        return carService.read(categoryId);
-    }
+    @CrossOrigin
+    //function to read all cars in the database and print to table
     @GetMapping(path = "/readAllCars")
     public @ResponseBody Iterable<Car> getAllCar()
     {
         return carService.readAll();
     }
+
 }
