@@ -6,10 +6,11 @@ import com.vehicleRental.factories.OrderFactory;
 import com.vehicleRental.services.Impl.CustomerServiceImpl;
 import com.vehicleRental.services.Impl.OrderServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+@Controller
+@RequestMapping(path = "/order")
 public class OrderController {
-
 
 
     @Autowired
@@ -28,12 +29,12 @@ public class OrderController {
     Orders create(@PathVariable long customerId, @RequestParam String orderDate)
     {
         customer = customerService.read(customerId);
-        orders = OrderFactory.getOrder(orderDate,customer);//,  customer);
+        orders = OrderFactory.getOrder(orderDate,customer);
         return  orderService.create(orders);
     }
     @CrossOrigin
     @GetMapping (path="/{customerId}/findOrder")
-    public @ResponseBody Orders findByCustomer (@PathVariable long customerId, @RequestParam Long id)
+    public @ResponseBody Orders findByCustomer (@PathVariable long customerId, @RequestParam long id)
     {
         return orderService.read(id);
     }

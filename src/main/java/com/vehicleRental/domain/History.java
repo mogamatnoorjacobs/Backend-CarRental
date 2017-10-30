@@ -4,115 +4,114 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by thabomoopa on 2017/10/26.
+ * Created by Vulombe on 29/10/2017.
  */
-
 @Entity
-public class Car implements Serializable {
+public class History implements Serializable
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
-    private String make;
-    private String model;
-    private int year;
-    private String numberPlate;
-    private boolean status;
-
-
+    private String  make;
+    private String  model;
+    private  int year;
+    private String numberPlate ;
+    private String  orderDate;
     @ManyToOne
-    private Category category;
+    private Invoices invoices;
 
-    private Car(){
+    private History(){}
 
-    }
-
-    public Car(Builder builder) {
+    public History(Builder builder)
+    {
         this.id = builder.id;
         this.make = builder.make;
         this.model = builder.model;
         this.year = builder.year;
         this.numberPlate = builder.numberPlate;
-        this.category = builder.category;
-        this.status = builder.status;
+        this.orderDate = builder.orderDate;
+        this.invoices = builder.invoices;
+    }
+
+    public long getId() {
+        return id;
+    }
+    public String getMake() {
+        return make;
+    }
+    public String getModel() {
+        return model;
+    }
+    public int getYear() {
+        return year;
+    }
+    public String getNumberPlate() {
+        return numberPlate;
+    }
+    public String getOrderDate() {
+        return orderDate;
+    }
+    public Invoices getInvoices() {
+        return invoices;
     }
 
     public static class Builder{
         private long id;
-        private String make;
-        private String model;
-        private int year;
-        private String numberPlate;
-        private boolean status;
-        private Category category;
+        private String  make;
+        private String  model;
+        private  int year;
+        private String  numberPlate;
+        private String  orderDate;
+        private Invoices invoices;
+
 
         public Builder id(long value)
         {
             this.id = value;
             return this;
         }
+
         public Builder make(String value)
         {
             this.make = value;
             return this;
         }
+
         public Builder model(String value)
         {
             this.model = value;
             return this;
         }
+
         public Builder year(int value)
         {
             this.year = value;
             return this;
         }
+
         public Builder numberPlate(String value)
         {
             this.numberPlate = value;
             return this;
         }
-        public Builder status(boolean value)
+
+        public Builder invoice(Invoices value)
         {
-            this.status = value;
+            this.invoices = value;
             return this;
         }
-        public Builder category(Category value)
+
+        public Builder orderDate(String value)
         {
-            this.category = value;
+            this.orderDate = value;
             return this;
         }
-        public Car build()
+
+
+        public History build()
         {
-            return new Car(this);
+            return new History(this);
         }
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getMake() {
-        return make;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public String getNumberPlate() {
-        return numberPlate;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 
     @Override
@@ -120,9 +119,9 @@ public class Car implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Car car = (Car) o;
+        History history = (History) o;
 
-        return id == car.id;
+        return id == history.id;
     }
 
     @Override

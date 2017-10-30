@@ -37,12 +37,14 @@ public class RentController
     @CrossOrigin
     @GetMapping(path="/{orderId}/{carId}/rentCar")
     public @ResponseBody
-    Rent create( @PathVariable long orderId, @PathVariable long carId,  @RequestParam String rentDate, @RequestParam String returnDate,
-                 @RequestParam BigDecimal totalPrice, @RequestParam int quantity)
+    Rent create( @PathVariable long orderId, @PathVariable long carId,
+                 @RequestParam String rentDate, @RequestParam String returnDate,
+                 @RequestParam BigDecimal totalPrice, @RequestParam int rentalDays)
     {
         car = carService.read(carId);
         order = orderService.read(orderId);
-        rent = RentFactory.getRent(car, rentDate,  returnDate,  totalPrice,quantity,order);
+
+        rent = RentFactory.getRent(car, rentDate,returnDate,totalPrice,order, rentalDays );
          return rentService.create(rent);
 
     }
@@ -59,7 +61,7 @@ public class RentController
     public @ResponseBody Rent updateRent (@PathVariable long orderId, @PathVariable long carId,
                                           @RequestParam Long rentId,
                                           @RequestParam String rentDate, @RequestParam String returnDate,
-                                          @RequestParam BigDecimal totalPrice, @RequestParam int quantity) {
+                                          @RequestParam BigDecimal totalPrice, @RequestParam int rentalDays) {
 
         car = carService.read(carId);
         order = orderService.read(orderId);
@@ -68,8 +70,8 @@ public class RentController
                 .id(rentId)
                 .rentDate(rentDate)
                 .returntDate(returnDate)
+                .rentalDays(rentalDays)
                 .totalPrice(totalPrice)
-                .quantity(quantity)
                 .build();
 
         return rentService.update(rentUpdate);
