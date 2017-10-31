@@ -29,7 +29,7 @@ public class InvoiceController
     private Customer customer;
 
     @CrossOrigin
-    @GetMapping(path="/{customerId}/addInvoice")
+    @PostMapping(path="/{customerId}/addInvoice")
     public @ResponseBody
     Invoices create(@PathVariable long customerId)
     {

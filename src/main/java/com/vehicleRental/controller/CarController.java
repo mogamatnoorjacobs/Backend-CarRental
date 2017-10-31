@@ -30,7 +30,7 @@ public class CarController {
     private CategoryServiceImpl categoryService;
 
     @CrossOrigin
-    @GetMapping(path = "/{categoryId}/addCar")
+    @PostMapping(path = "/{categoryId}/addCar")
     public @ResponseBody Car create(@PathVariable long categoryId,
                                     @RequestParam String make, @RequestParam String model,
                                     @RequestParam int year, @RequestParam String numberPlate,
@@ -56,14 +56,14 @@ public class CarController {
 
     @CrossOrigin
     //function to edit the car according to the transaction
-    @GetMapping(path = "/updateCar")
-    public @ResponseBody Car update(@RequestParam long id, @RequestParam String make, @RequestParam String model,
+    @PostMapping(path = "/{categoryId}/updateCar")
+    public @ResponseBody Car update(@PathVariable long categoryId, @RequestParam long id, @RequestParam String make, @RequestParam String model,
                                     @RequestParam int year, @RequestParam String numberPlate,
                                     @RequestParam boolean status)
     {
 
         //category = categoryService.read(categoryId);
-        carService.read(id);
+        category = categoryService.read(categoryId);
         Car carUpdate = new Car.Builder()
                 .id(id)
                .make(make)
@@ -71,6 +71,7 @@ public class CarController {
                .year(year)
                .numberPlate(numberPlate)
                 .status(status)
+                .category(category)
                .build();
 
         return carService.update(carUpdate);

@@ -29,7 +29,7 @@ public class HistoryController
     private InvoiceServiceImpl invoiceService;
 
     @CrossOrigin
-    @GetMapping(path="/{invoiceId}/checkHistory")
+    @PostMapping(path="/{invoiceId}/checkHistory")
     public @ResponseBody
     History createHistory(@PathVariable long historyId, @RequestParam String make, @RequestParam String model,
                    @RequestParam int year, @RequestParam String numberPlate,@PathVariable long invoiceID,@RequestParam String orderDate)

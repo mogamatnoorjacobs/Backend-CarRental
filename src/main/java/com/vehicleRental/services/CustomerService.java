@@ -11,4 +11,5 @@ public interface CustomerService {
     Customer update(Customer customer);
     void delete(long id);
     Iterable<Customer> findAll();
+    Customer availableEmail(String email);
 }
