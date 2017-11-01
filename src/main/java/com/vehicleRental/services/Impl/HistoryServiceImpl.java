@@ -34,4 +34,8 @@ public class HistoryServiceImpl implements HistoryService
     {
         return  historyRepository.findAll();
     }
+    public History findByInvoices(long id){
+        return historyRepository.findByInvoices(id);
+    }
+
 }

@@ -2,9 +2,11 @@ package com.vehicleRental.controller;
 
 import com.vehicleRental.domain.History;
 import com.vehicleRental.domain.Invoices;
+import com.vehicleRental.domain.Rent;
 import com.vehicleRental.factories.HistoryFactory;
 import com.vehicleRental.services.Impl.HistoryServiceImpl;
 import com.vehicleRental.services.Impl.InvoiceServiceImpl;
+import com.vehicleRental.services.Impl.RentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,7 @@ public class HistoryController
 {
     private History history;
     private Invoices invoices;
+    private Rent rent;
 
     @Autowired
     private HistoryServiceImpl historyService;
@@ -28,19 +31,21 @@ public class HistoryController
     @Autowired
     private InvoiceServiceImpl invoiceService;
 
+    @Autowired
+    private RentServiceImpl rentService;
+
     @CrossOrigin
-    @PostMapping(path="/{invoiceId}/checkHistory")
+    @PostMapping(path="/{invoiceId}/{rentId}/addHistory")
     public @ResponseBody
-    History createHistory(@PathVariable long historyId, @RequestParam String make, @RequestParam String model,
-                   @RequestParam int year, @RequestParam String numberPlate,@PathVariable long invoiceID,@RequestParam String orderDate)
+    History createHistory(@PathVariable long invoiceId,@PathVariable long rentId, boolean rented, boolean outstanding)
     {
-        Map<String, String> values = new HashMap<>();
-        values.put("make",make);
-        values.put("model",model);
-        values.put("numberPlate",numberPlate);
-        values.put("orderDate",orderDate);
-        invoices = invoiceService.read(invoiceID);
-        history = HistoryFactory.getHistory(values, year, invoices);
+        Map<String, Boolean> values = new HashMap<>();
+        values.put("rented",rented);
+        values.put("outstanding",outstanding);
+
+        invoices = invoiceService.read(invoiceId);
+        rent = rentService.read(rentId);
+        history = HistoryFactory.getHistory(values,rent, invoices );
 
         return historyService.create(history);
     }
@@ -49,30 +54,28 @@ public class HistoryController
     @GetMapping (path="/findHistoryItem")
     public @ResponseBody History findHistoryItem(long historyId)
     {
-        return history = historyService.read(historyId);
+        return historyService.read(historyId);
     }
 
     @CrossOrigin
-    @GetMapping(path = "/updateHistory")
+    @PostMapping(path = "/{invoiceId}/{rentId}/updateHistory")
     public
-    @ResponseBody History updateHistory(@PathVariable long historyId, @RequestParam String make, @RequestParam String model,
-                                @RequestParam int year, @RequestParam String numberPlate,@PathVariable long invoiceID,@RequestParam String orderDate)
+    @ResponseBody History updateHistory(@PathVariable long invoiceId,@PathVariable long rentId,@RequestParam long id, boolean rented, boolean outstanding)
     {
-        invoices = invoiceService.read(invoiceID);
-        history = historyService.read(historyId);
+        invoices = invoiceService.read(invoiceId);
+        rent = rentService.read(rentId);
         History historyUpdate = new History.Builder()
-                    .id(historyId)
-                    .make(make)
-                    .model(model)
-                    .year(year)
-                    .numberPlate(numberPlate)
-                    .orderDate(orderDate)
+                    .id(id)
+                    .invoices(invoices)
+                    .rent(rent)
+                    .rented(rented)
+                    .outstanding(outstanding)
                     .build();
         return historyService.update(historyUpdate);
     }
 
     @CrossOrigin
-    @GetMapping(path = "/deleteHistory")
+    @DeleteMapping(path = "/deleteHistory")
     public
     @ResponseBody
     void deleteHistory(long historyID) {
@@ -81,9 +84,17 @@ public class HistoryController
 
     @CrossOrigin
     @GetMapping(path = "/findAll")
-    public @ResponseBody Iterable<History> getAllCustomers()
+    public @ResponseBody Iterable<History> getAllRentals()
     {
         return historyService.findAll();
+    }
+
+    @CrossOrigin
+    @GetMapping(path = "/{invoiceId}/findAllRentalBasedInvoice")
+    public @ResponseBody History getAllBasedOnInvoice(@PathVariable long invoiceId)
+    {
+
+        return historyService.read(invoiceId);
     }
 
 }
