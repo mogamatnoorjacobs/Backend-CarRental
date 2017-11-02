@@ -17,6 +17,7 @@ public class Rent implements Serializable
     private BigDecimal totalPrice;
     private int rentalDays;
 
+    private Rent(){};
 
     @OneToOne
     @JoinColumn(name = "carID")

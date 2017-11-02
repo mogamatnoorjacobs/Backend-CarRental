@@ -26,7 +26,7 @@ public class CustomerController {
 
     @CrossOrigin
     //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&city=Cape+town&province=western+cape&complex=rosenvale&street=kaapzchit&houseNumber=1&postalCode=0123
-    @GetMapping(path = "/addCustomer")
+    @PostMapping(path = "/addCustomer")
     public
     @ResponseBody
     Customer addCustomer(@RequestParam String name, @RequestParam String surname, @RequestParam String email,
@@ -98,6 +98,13 @@ public class CustomerController {
     public @ResponseBody Iterable<Customer> getAllCustomers()
     {
         return customerService.findAll();
+    }
+
+    @CrossOrigin
+    @GetMapping(path = "/findByEmail")
+    public @ResponseBody Customer availableEmail(String email)
+    {
+        return customerService.availableEmail(email);
     }
 
 

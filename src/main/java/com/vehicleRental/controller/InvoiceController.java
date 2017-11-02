@@ -29,7 +29,7 @@ public class InvoiceController
     private Customer customer;
 
     @CrossOrigin
-    @GetMapping(path="/{customerId}/addInvoice")
+    @PostMapping(path="/{customerId}/addInvoice")
     public @ResponseBody
     Invoices create(@PathVariable long customerId)
     {
@@ -46,12 +46,12 @@ public class InvoiceController
     }
 
     @CrossOrigin
-    @GetMapping (path="/{customerId}/updateInvoice")
+    @PostMapping (path="/{customerId}/updateInvoice")
     public @ResponseBody
     Invoices updateOrder (@PathVariable long customerId, @RequestParam long id) {
 
 
-        invoiceService.read(id);
+        customer = customerService.read(customerId);
         Invoices invoiceUpdate = new Invoices.Builder()
                 .id(id)
                 .customer(customer)
@@ -60,7 +60,7 @@ public class InvoiceController
         return invoiceService.update(invoiceUpdate);
     }
     @CrossOrigin
-    @GetMapping (path="/{customerId}/deleteInvoice")
+    @GetMapping (path="/deleteInvoice")
     public @ResponseBody void updateOrder (@RequestParam Long id) {
         invoiceService.delete(id);
 

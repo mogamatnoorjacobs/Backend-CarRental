@@ -12,4 +12,5 @@ public interface HistoryService
     History update(History history);
     void delete(long id);
     Iterable<History> findAll();
+    History findByInvoices(long id);
 }

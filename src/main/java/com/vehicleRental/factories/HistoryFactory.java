@@ -2,6 +2,7 @@ package com.vehicleRental.factories;
 
 import com.vehicleRental.domain.History;
 import com.vehicleRental.domain.Invoices;
+import com.vehicleRental.domain.Rent;
 
 import java.util.Map;
 
@@ -10,15 +11,13 @@ import java.util.Map;
  */
 public class HistoryFactory
 {
-    public  static History getHistory(Map<String, String> values, int year, Invoices invoices)
+    public  static History getHistory(Map<String, Boolean> boolValues, Rent rent, Invoices invoices)
     {
         History history = new History.Builder()
-                .make(values.get("make"))
-                .model(values.get("make"))
-                .year(year)
-                .numberPlate(values.get("make"))
-                .invoice(invoices)
-                .orderDate(values.get("make"))
+                .rented(boolValues.get("rented"))
+                .outstanding(boolValues.get("outstanding"))
+                .rent(rent)
+                .invoices(invoices)
                 .build();
         return history;
     }

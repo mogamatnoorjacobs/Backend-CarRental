@@ -12,57 +12,35 @@ public class History implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String  make;
-    private String  model;
-    private  int year;
-    private String numberPlate ;
-    private String  orderDate;
+
+    @ManyToOne
+    private Rent rent;
+
     @ManyToOne
     private Invoices invoices;
+
+
+    private boolean rented;
+    private boolean outstanding;
 
     private History(){}
 
     public History(Builder builder)
     {
         this.id = builder.id;
-        this.make = builder.make;
-        this.model = builder.model;
-        this.year = builder.year;
-        this.numberPlate = builder.numberPlate;
-        this.orderDate = builder.orderDate;
+        this.rent = builder.rent;
+        this.rented = builder.rented;
+        this.outstanding = builder.outstanding;
         this.invoices = builder.invoices;
     }
 
-    public long getId() {
-        return id;
-    }
-    public String getMake() {
-        return make;
-    }
-    public String getModel() {
-        return model;
-    }
-    public int getYear() {
-        return year;
-    }
-    public String getNumberPlate() {
-        return numberPlate;
-    }
-    public String getOrderDate() {
-        return orderDate;
-    }
-    public Invoices getInvoices() {
-        return invoices;
-    }
 
     public static class Builder{
         private long id;
-        private String  make;
-        private String  model;
-        private  int year;
-        private String  numberPlate;
-        private String  orderDate;
+        private Rent rent;
         private Invoices invoices;
+        private boolean rented;
+        private boolean outstanding;
 
 
         public Builder id(long value)
@@ -71,47 +49,67 @@ public class History implements Serializable
             return this;
         }
 
-        public Builder make(String value)
+        public Builder rent(Rent value)
         {
-            this.make = value;
+            this.rent = value;
             return this;
         }
 
-        public Builder model(String value)
+        public Builder rented(boolean value)
         {
-            this.model = value;
+            this.rented = value;
             return this;
         }
 
-        public Builder year(int value)
+        public Builder outstanding(boolean value)
         {
-            this.year = value;
+            this.outstanding = value;
             return this;
         }
 
-        public Builder numberPlate(String value)
-        {
-            this.numberPlate = value;
-            return this;
-        }
+//        public Builder numberPlate(String value)
+//        {
+//            this.numberPlate = value;
+//            return this;
+//        }
 
-        public Builder invoice(Invoices value)
+        public Builder invoices(Invoices value)
         {
             this.invoices = value;
             return this;
         }
 
-        public Builder orderDate(String value)
-        {
-            this.orderDate = value;
-            return this;
-        }
+//        public Builder orderDate(String value)
+//        {
+//            this.orderDate = value;
+//            return this;
+//        }
 
 
         public History build()
         {
             return new History(this);
         }
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Rent getRent() {
+        return rent;
+    }
+
+    public Invoices getInvoices() {
+        return invoices;
+    }
+
+    public boolean isRented() {
+        return rented;
+    }
+
+    public boolean isOutstanding() {
+        return outstanding;
     }
 
     @Override

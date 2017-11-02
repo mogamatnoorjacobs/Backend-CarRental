@@ -16,7 +16,7 @@ public class InvoiceServiceImpl implements InvoiceService
     @Autowired
     private InvoiceRepository invoiceRepository;
 
-   public Invoices create(Invoices invoices)
+    public Invoices create(Invoices invoices)
     {
         return  invoiceRepository.save(invoices);
     }

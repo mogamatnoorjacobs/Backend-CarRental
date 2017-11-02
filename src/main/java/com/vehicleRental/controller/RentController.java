@@ -35,7 +35,7 @@ public class RentController
     private OrderServiceImpl orderService;
 
     @CrossOrigin
-    @GetMapping(path="/{orderId}/{carId}/rentCar")
+    @PostMapping(path="/{orderId}/{carId}/rentCar")
     public @ResponseBody
     Rent create( @PathVariable long orderId, @PathVariable long carId,
                  @RequestParam String rentDate, @RequestParam String returnDate,
