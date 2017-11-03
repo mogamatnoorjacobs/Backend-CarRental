@@ -77,10 +77,17 @@ public class RentController
         return rentService.update(rentUpdate);
     }
     @CrossOrigin
-    @GetMapping (path="/deleteRent")
+    @DeleteMapping (path="/deleteRent")
     public @ResponseBody void updateRent (@RequestParam Long id) {
         rentService.delete(id);
 
+    }
+
+    @CrossOrigin
+    @GetMapping(path ="/findAllRentedCars")
+    public @ResponseBody Iterable<Rent> getAllRentedCars()
+    {
+        return rentService.readAll();
     }
 
 

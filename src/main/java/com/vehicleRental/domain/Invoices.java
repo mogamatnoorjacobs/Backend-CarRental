@@ -13,8 +13,7 @@ public class Invoices implements Serializable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @OneToOne
-    @JoinColumn(name = "customerID")
+    @ManyToOne
     private  Customer customer;
 
     private Invoices(){}

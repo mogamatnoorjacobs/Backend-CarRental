@@ -1,13 +1,17 @@
 package com.vehicleRental.controller;
 
 import com.vehicleRental.domain.Customer;
+import com.vehicleRental.domain.Invoices;
 import com.vehicleRental.factories.CustomerFactory;
 import com.vehicleRental.services.Impl.CustomerServiceImpl;
+import com.vehicleRental.services.Impl.InvoiceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,11 +25,17 @@ public class CustomerController {
     @Autowired
     private CustomerServiceImpl customerService;
 
+    //@Autowired
+    //private InvoiceServiceImpl invoiceService;
+
     private Customer customer;
+
+    //private Invoices invoices;
 
 
     @CrossOrigin
     //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&city=Cape+town&province=western+cape&complex=rosenvale&street=kaapzchit&houseNumber=1&postalCode=0123
+    //@GetMapping(path = "/{invoiceId}/addCustomer")
     @PostMapping(path = "/addCustomer")
     public
     @ResponseBody
@@ -44,6 +54,7 @@ public class CustomerController {
         stringValues.put("street", street);
         intValues.put("houseNumber", houseNumber);
         intValues.put("postalCode", postalCode);
+
 
         customer = CustomerFactory.getCustomer(stringValues, intValues);
 

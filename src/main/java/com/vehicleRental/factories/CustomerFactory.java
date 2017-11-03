@@ -1,7 +1,9 @@
 package com.vehicleRental.factories;
 
 import com.vehicleRental.domain.Customer;
+import com.vehicleRental.domain.Invoices;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,6 +23,7 @@ public class CustomerFactory
                 .street(stringValues.get("street"))
                 .houseNumber(intValues.get("houseNumber"))
                 .postalCode(intValues.get("houseNumber"))
+                //.invoices(invoices)
                 .build();
         return customer;
     }
