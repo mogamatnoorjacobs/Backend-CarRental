@@ -12,4 +12,5 @@ public interface UserService {
     User update(User user);
     void delete(long id);
     Iterable<User> findAllUsers();
+    User findByName(String name);
 }
