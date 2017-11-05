@@ -100,7 +100,7 @@ public class CustomerController {
     @GetMapping(path = "/deleteCustomer")
     public
     @ResponseBody
-    void deleteCustomer(long customerID) {
+    void deleteCustomer(@RequestParam long customerID) {
         customerService.delete(customerID);
     }
 
