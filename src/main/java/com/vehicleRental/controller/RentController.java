@@ -35,14 +35,16 @@ public class RentController
     private OrderServiceImpl orderService;
 
     @CrossOrigin
-    @GetMapping(path="/{orderId}/{carId}/rentCar")
+    @PostMapping(path="/{orderId}/{carId}/rentCar")
     public @ResponseBody
-    Rent create( @PathVariable long orderId, @PathVariable long carId,  @RequestParam String rentDate, @RequestParam String returnDate,
-                 @RequestParam BigDecimal totalPrice, @RequestParam int quantity)
+    Rent create( @PathVariable long orderId, @PathVariable long carId,
+                 @RequestParam String rentDate, @RequestParam String returnDate,
+                 @RequestParam BigDecimal totalPrice, @RequestParam int rentalDays, @RequestParam boolean outstanding)
     {
         car = carService.read(carId);
         order = orderService.read(orderId);
-        rent = RentFactory.getRent(car, rentDate,  returnDate,  totalPrice,quantity,order);
+
+        rent = RentFactory.getRent(car, rentDate,returnDate,totalPrice,order, rentalDays, outstanding);
          return rentService.create(rent);
 
     }
@@ -59,7 +61,8 @@ public class RentController
     public @ResponseBody Rent updateRent (@PathVariable long orderId, @PathVariable long carId,
                                           @RequestParam Long rentId,
                                           @RequestParam String rentDate, @RequestParam String returnDate,
-                                          @RequestParam BigDecimal totalPrice, @RequestParam int quantity) {
+                                          @RequestParam BigDecimal totalPrice, @RequestParam int rentalDays,
+                                          @RequestParam boolean outstanding) {
 
         car = carService.read(carId);
         order = orderService.read(orderId);
@@ -68,17 +71,25 @@ public class RentController
                 .id(rentId)
                 .rentDate(rentDate)
                 .returntDate(returnDate)
+                .rentalDays(rentalDays)
                 .totalPrice(totalPrice)
-                .quantity(quantity)
+                .outstanding(outstanding)
                 .build();
 
         return rentService.update(rentUpdate);
     }
     @CrossOrigin
-    @GetMapping (path="/deleteRent")
+    @DeleteMapping (path="/deleteRent")
     public @ResponseBody void updateRent (@RequestParam Long id) {
         rentService.delete(id);
 
+    }
+
+    @CrossOrigin
+    @GetMapping(path ="/findAllRentedCars")
+    public @ResponseBody Iterable<Rent> getAllRentedCars()
+    {
+        return rentService.readAll();
     }
 
 

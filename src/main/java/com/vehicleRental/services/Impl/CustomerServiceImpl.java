@@ -40,4 +40,8 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findAll();
     }
 
+    @Override
+    public Customer availableEmail(String email) {
+        return customerRepository.findByEmail(email);
+    }
 }

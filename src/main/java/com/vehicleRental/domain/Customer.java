@@ -1,11 +1,9 @@
 package com.vehicleRental.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Noor on 27/10/2017.
@@ -22,6 +20,12 @@ public class Customer implements Serializable{
     private int postalCode;
     private String complex;
     private String street;
+
+//    public List<Invoices> getInvoices() {
+//        return invoices;
+//    }
+//    @OneToMany
+//    private List<Invoices> invoices;
 
     private Customer(){
     }
@@ -78,6 +82,7 @@ public class Customer implements Serializable{
         this.postalCode = builder.postalCode;
         this.complex = builder.complex;
         this.street = builder.street;
+        //this.invoices = builder.invoices;
     }
 
     public static class Builder{
@@ -89,7 +94,13 @@ public class Customer implements Serializable{
         private int postalCode;
         private String complex;
         private String street;
+       // private List<Invoices> invoices;
 
+//        public Builder invoices (List<Invoices> value)
+//        {
+//            this.invoices = value;
+//            return this;
+//        }
         public Builder houseNumber(int value)
         {
             this.houseNumber = value;

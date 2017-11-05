@@ -11,15 +11,16 @@ import java.util.Map;
 public class RentFactory
 {
     public static Rent getRent(Car car,String rentDate, String returnDate, BigDecimal totalPrice,
-                               int quantity, Orders order)
+                               Orders order, int rentalDays,boolean outstanding)
     {
         Rent rent = new Rent.Builder()
                 .car(car)
                 .rentDate(rentDate)
                 .returntDate(returnDate)
+                .rentalDays(rentalDays)
                 .totalPrice(totalPrice)
-                .quantity(quantity)
                 .order(order)
+                .outstanding(outstanding)
                 .build();
         return  rent;
     }

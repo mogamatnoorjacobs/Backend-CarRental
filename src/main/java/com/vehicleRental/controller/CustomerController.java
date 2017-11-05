@@ -1,13 +1,17 @@
 package com.vehicleRental.controller;
 
 import com.vehicleRental.domain.Customer;
+import com.vehicleRental.domain.Invoices;
 import com.vehicleRental.factories.CustomerFactory;
 import com.vehicleRental.services.Impl.CustomerServiceImpl;
+import com.vehicleRental.services.Impl.InvoiceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,12 +25,18 @@ public class CustomerController {
     @Autowired
     private CustomerServiceImpl customerService;
 
+    //@Autowired
+    //private InvoiceServiceImpl invoiceService;
+
     private Customer customer;
+
+    //private Invoices invoices;
 
 
     @CrossOrigin
-    //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&addressID=1
-    @GetMapping(path = "/addCustomer")
+    //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&city=Cape+town&province=western+cape&complex=rosenvale&street=kaapzchit&houseNumber=1&postalCode=0123
+    //@GetMapping(path = "/{invoiceId}/addCustomer")
+    @PostMapping(path = "/addCustomer")
     public
     @ResponseBody
     Customer addCustomer(@RequestParam String name, @RequestParam String surname, @RequestParam String email,
@@ -44,6 +54,7 @@ public class CustomerController {
         stringValues.put("street", street);
         intValues.put("houseNumber", houseNumber);
         intValues.put("postalCode", postalCode);
+
 
         customer = CustomerFactory.getCustomer(stringValues, intValues);
 
@@ -63,14 +74,14 @@ public class CustomerController {
     @GetMapping(path = "/updateCustomer")
     public
     @ResponseBody
-    Customer updateCustomer(@RequestParam long id, @RequestParam String name, @RequestParam String surname, @RequestParam String email,
+    Customer updateCustomer(@RequestParam long customerId, @RequestParam String name, @RequestParam String surname, @RequestParam String email,
                             @RequestParam String city, @RequestParam String province, @RequestParam String complex,
                             @RequestParam String street, @RequestParam int houseNumber, @RequestParam int postalCode) {
 
 
-        customerService.read(id);
+        //customerService.read(customerId);
         Customer customerUpdate = new Customer.Builder()
-                .id(id)
+                .id(customerId)
                 .name(name)
                 .surname(surname)
                 .email(email)
@@ -98,6 +109,13 @@ public class CustomerController {
     public @ResponseBody Iterable<Customer> getAllCustomers()
     {
         return customerService.findAll();
+    }
+
+    @CrossOrigin
+    @GetMapping(path = "/findByEmail")
+    public @ResponseBody Customer availableEmail(String email)
+    {
+        return customerService.availableEmail(email);
     }
 
 

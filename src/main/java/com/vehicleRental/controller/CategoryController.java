@@ -20,7 +20,7 @@ public class CategoryController {
     private CategoryServiceImpl categoryService;
 
     @CrossOrigin
-    @GetMapping (path="/addCategory")
+    @PostMapping(path="/addCategory")
     public @ResponseBody Category create(@RequestParam String name, @RequestParam double price)
     {
         category = CategoryFactory.getCategory(name, price);
@@ -31,6 +31,13 @@ public class CategoryController {
     public @ResponseBody Category findByName(@RequestParam String name)
     {
         return categoryService.findByName(name);
+    }
+
+    @CrossOrigin
+    @GetMapping (path="/read")
+    public @ResponseBody Category read(@RequestParam long id)
+    {
+        return categoryService.read(id);
     }
 
     @CrossOrigin

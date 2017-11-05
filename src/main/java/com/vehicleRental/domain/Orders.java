@@ -11,12 +11,10 @@ public class Orders implements Serializable {
 
     private String orderDate;
 
-    @OneToOne
+    @ManyToOne
     private Customer customer;
 
-
-
-    public Orders(){}
+    private Orders(){}
 
     public Orders(Builder builder) {
         this.id = builder.id;
@@ -25,9 +23,9 @@ public class Orders implements Serializable {
     }
 
     public static class Builder{
-        private Long id;
+        private long id;
         private Customer customer;
-            private String orderDate;
+        private String orderDate;
 
         public Builder customer(Customer value)
         {
@@ -53,27 +51,30 @@ public class Orders implements Serializable {
         }
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Orders orders = (Orders) o;
+
+        return id == orders.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (id ^ (id >>> 32));
     }
 }

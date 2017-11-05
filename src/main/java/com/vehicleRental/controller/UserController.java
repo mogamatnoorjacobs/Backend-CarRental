@@ -20,7 +20,7 @@ public class UserController
     private UserServiceImpl userService;
 
     @CrossOrigin
-    @GetMapping(path="/addUser")
+    @PostMapping(path="/addUser")
     public @ResponseBody
     User addUser(@RequestParam String name, @RequestParam String surname,@RequestParam String password,@RequestParam String role)
     {
@@ -59,6 +59,13 @@ public class UserController
     public @ResponseBody void delete(@RequestParam long userID)
     {
         userService.delete(userID);
+    }
+
+    @CrossOrigin
+    @GetMapping (path = "/findByName")
+    public @ResponseBody User findEmail(@RequestParam String email)
+    {
+        return userService.findByName(email);
     }
 
 
