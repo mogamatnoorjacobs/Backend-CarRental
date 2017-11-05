@@ -71,15 +71,15 @@ public class CustomerController {
     }
 
     @CrossOrigin
-    @GetMapping(path = "/{customerId}/updateCustomer")
+    @GetMapping(path = "/updateCustomer")
     public
     @ResponseBody
-    Customer updateCustomer(@PathVariable long customerId, @RequestParam String name, @RequestParam String surname, @RequestParam String email,
+    Customer updateCustomer(@RequestParam long customerId, @RequestParam String name, @RequestParam String surname, @RequestParam String email,
                             @RequestParam String city, @RequestParam String province, @RequestParam String complex,
                             @RequestParam String street, @RequestParam int houseNumber, @RequestParam int postalCode) {
 
 
-        customerService.read(customerId);
+        //customerService.read(customerId);
         Customer customerUpdate = new Customer.Builder()
                 .id(customerId)
                 .name(name)

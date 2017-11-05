@@ -56,7 +56,7 @@ public class CarController {
 
     @CrossOrigin
     //function to edit the car according to the transaction
-    @PostMapping(path = "/{categoryId}/updateCar")
+    @GetMapping (path = "/{categoryId}/updateCar")
     public @ResponseBody Car update(@PathVariable long categoryId, @RequestParam long id, @RequestParam String make, @RequestParam String model,
                                     @RequestParam int year, @RequestParam String numberPlate,
                                     @RequestParam boolean status)
@@ -78,7 +78,7 @@ public class CarController {
     }
 
     @CrossOrigin
-    @GetMapping (path = "/deleteCar")
+    @GetMapping(path = "/deleteCar")
     public @ResponseBody void delete(@RequestParam long id)
     {
         carService.delete(id);

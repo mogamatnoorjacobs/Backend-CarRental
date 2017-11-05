@@ -11,7 +11,7 @@ import java.util.Map;
 public class RentFactory
 {
     public static Rent getRent(Car car,String rentDate, String returnDate, BigDecimal totalPrice,
-                               Orders order, int rentalDays)
+                               Orders order, int rentalDays,boolean outstanding)
     {
         Rent rent = new Rent.Builder()
                 .car(car)
@@ -20,6 +20,7 @@ public class RentFactory
                 .rentalDays(rentalDays)
                 .totalPrice(totalPrice)
                 .order(order)
+                .outstanding(outstanding)
                 .build();
         return  rent;
     }

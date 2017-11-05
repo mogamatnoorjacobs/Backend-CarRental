@@ -16,6 +16,7 @@ public class Rent implements Serializable
     private String returntDate;
     private BigDecimal totalPrice;
     private int rentalDays;
+    private boolean outstanding;
 
     private Rent(){};
 
@@ -50,6 +51,10 @@ public class Rent implements Serializable
         return order;
     }
 
+    public boolean isOutstanding() {
+        return outstanding;
+    }
+
     public Rent(Builder builder)
     {
         this.order = builder.order;
@@ -58,6 +63,7 @@ public class Rent implements Serializable
         this.returntDate = builder.returntDate;
         this.totalPrice = builder.totalPrice;
         this.rentalDays = builder.rentalDays;
+        this.outstanding = builder.outstanding;
 
         this.car = builder.car;
     }
@@ -70,7 +76,13 @@ public class Rent implements Serializable
         private Car car;
         private Orders order;
         private int rentalDays;
+        private boolean outstanding;
 
+        public Builder outstanding(boolean value)
+        {
+            this.outstanding = value;
+            return this;
+        }
         public Builder rentalDays(int value)
         {
             this.rentalDays = value;
