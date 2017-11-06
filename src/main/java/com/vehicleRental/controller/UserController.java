@@ -61,5 +61,12 @@ public class UserController
         userService.delete(userID);
     }
 
+    @CrossOrigin
+    @GetMapping (path = "/findByName")
+    public @ResponseBody User findEmail(@RequestParam String email)
+    {
+        return userService.findByName(email);
+    }
+
 
 }

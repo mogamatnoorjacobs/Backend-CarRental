@@ -1,13 +1,17 @@
 package com.vehicleRental.controller;
 
 import com.vehicleRental.domain.Customer;
+import com.vehicleRental.domain.Invoices;
 import com.vehicleRental.factories.CustomerFactory;
 import com.vehicleRental.services.Impl.CustomerServiceImpl;
+import com.vehicleRental.services.Impl.InvoiceServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,11 +25,17 @@ public class CustomerController {
     @Autowired
     private CustomerServiceImpl customerService;
 
+    //@Autowired
+    //private InvoiceServiceImpl invoiceService;
+
     private Customer customer;
+
+    //private Invoices invoices;
 
 
     @CrossOrigin
     //  http://localhost:8080/customer/addCustomer?name=noor&surname=mo&email=thab.moopa&city=Cape+town&province=western+cape&complex=rosenvale&street=kaapzchit&houseNumber=1&postalCode=0123
+    //@GetMapping(path = "/{invoiceId}/addCustomer")
     @PostMapping(path = "/addCustomer")
     public
     @ResponseBody
@@ -45,6 +55,7 @@ public class CustomerController {
         intValues.put("houseNumber", houseNumber);
         intValues.put("postalCode", postalCode);
 
+
         customer = CustomerFactory.getCustomer(stringValues, intValues);
 
         return customerService.create(customer);
@@ -60,15 +71,15 @@ public class CustomerController {
     }
 
     @CrossOrigin
-    @GetMapping(path = "/{customerId}/updateCustomer")
+    @GetMapping(path = "/updateCustomer")
     public
     @ResponseBody
-    Customer updateCustomer(@PathVariable long customerId, @RequestParam String name, @RequestParam String surname, @RequestParam String email,
+    Customer updateCustomer(@RequestParam long customerId, @RequestParam String name, @RequestParam String surname, @RequestParam String email,
                             @RequestParam String city, @RequestParam String province, @RequestParam String complex,
                             @RequestParam String street, @RequestParam int houseNumber, @RequestParam int postalCode) {
 
 
-        customerService.read(customerId);
+        //customerService.read(customerId);
         Customer customerUpdate = new Customer.Builder()
                 .id(customerId)
                 .name(name)
@@ -89,7 +100,7 @@ public class CustomerController {
     @GetMapping(path = "/deleteCustomer")
     public
     @ResponseBody
-    void deleteCustomer(long customerID) {
+    void deleteCustomer(@RequestParam long customerID) {
         customerService.delete(customerID);
     }
 
