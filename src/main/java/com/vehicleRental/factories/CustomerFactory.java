@@ -22,7 +22,7 @@ public class CustomerFactory
                 .complex(stringValues.get("complex"))
                 .street(stringValues.get("street"))
                 .houseNumber(intValues.get("houseNumber"))
-                .postalCode(intValues.get("houseNumber"))
+                .postalCode(intValues.get("postalCode"))
                 //.invoices(invoices)
                 .build();
         return customer;
